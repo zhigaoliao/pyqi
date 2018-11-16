@@ -32,9 +32,18 @@ def del_students(request):
     return redirect('/students.html')
 
 def edit_students(request):
-    nid = request.GET.get('nid')
-    obj = models.Student.objects.filter(id=nid).first()
-    print(obj)
-    cls_list = models.Classes.objects.values('id','title')
-    print(cls_list)
-    return render(request,'edit_classes.html',{'obj':obj,'cls_list':cls_list})
+    if request.method == 'GET':
+        nid = request.GET.get('nid')
+        obj = models.Student.objects.filter(id=nid).first()
+        print(obj)
+        cls_list = models.Classes.objects.values('id','title')
+        print(cls_list)
+        return render(request,'edit_students.html',{'obj':obj,'cls_list':cls_list})
+    elif request.method == 'POST':
+        nid = request.GET.get('nid')
+        u = request.POST.get('name')
+        a = request.POST.get('age')
+        g = request.POST.get('gender')
+        cid = request.POST.get('class_id')
+        models.Student.objects.filter(id=nid).update(name=u,age=a,gender=g,cs_id=cid)
+        return redirect('/students.html')

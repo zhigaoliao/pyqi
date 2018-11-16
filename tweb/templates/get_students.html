@@ -35,7 +35,11 @@
                         {{ stu.age }}
                     </td>
                     <td>
-                        {{ stu.gender }}
+                        {% if stu.gender == 1 %}
+                            男
+                        {% else %}
+                            女
+                        {% endif %}
                     </td>
                     <td>
                         {{ stu.cs.title }}
