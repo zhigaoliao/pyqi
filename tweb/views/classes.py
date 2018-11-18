@@ -29,3 +29,28 @@ def edit_classes(request):
         title = request.POST.get('xxoo')
         models.Classes.objects.filter(id=nid).update(title=title)
         return redirect('/classes.html')
+
+def set_teacher(request):
+    if request.method == 'GET':
+        nid = request.GET.get('nid')
+        cot = models.Classes.objects.filter(id=nid).first()
+        tall = cot.m.all().values_list('id','name')
+        idlist = list(zip(*tall))[0] if list(zip(*tall)) else []
+
+        allteacher =models.Teachers.objects.all()
+        return render(request,
+                        'set_teacher.html',
+                        {
+                        'idlist':idlist,
+                        'allteacher':allteacher,
+                        'nid':nid
+                        }
+                        )
+    elif request.method == 'POST':
+        nid = request.GET.get('nid')
+        ids = request.POST.getlist('tids')
+        print('当前班级的ID', nid ,'分配老师的ID', ids)
+
+        obj = models.Classes.objects.filter(id=nid).first()
+        obj.m.set(ids)
+        return redirect('/classes.html')
