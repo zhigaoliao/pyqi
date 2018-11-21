@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from tweb.views import  classes
-from tweb.views import students
+from tweb.views import students,ajax
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +30,9 @@ path('students.html',students.get_students),
 path('add_students.html',students.add_students),
 path('del_students.html',students.del_students),
 path('edit_students.html',students.edit_students),
+path('ajax1.html',ajax.ajax1),
+path('ajax2.html',ajax.ajax2),
+path('ajax3.html',ajax.ajax3),
+path('ajax4.html',ajax.ajax4),
 
 ]
